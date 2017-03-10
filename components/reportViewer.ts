@@ -92,7 +92,7 @@ export class ReportViewer implements AfterViewInit {
         });
 
         this._report.on("pageChanged", function (e) {
-            that._currentPage = <Page>(e.detail["newPage"]);
+            that._currentPage = <Page>((<any>e.detail)["newPage"]);
             if (that._pages == null || that._pages.length === 0) {
                 return;
             }
@@ -171,7 +171,7 @@ export class ReportViewer implements AfterViewInit {
     // https://github.com/Microsoft/PowerBI-JavaScript/wiki/Settings
     public UpdateSetting(settingName: string, value: any) {
         let settings: IEmbedConfiguration = {};
-        settings[settingName] = value;
+        (<any>settings)[settingName] = value;
         this._report.updateSettings(settings);
     }
 
