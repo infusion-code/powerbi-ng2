@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "ES6",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "declaration": true,
+        "outDir": "dist"
+    },
+    "files": [
+        "index.ts",
+        "components/reportDashboard.ts",
+        "components/reportFilter.ts",
+        "components/reportNavigation.ts",
+        "components/reportsList.ts",
+        "components/reportViewer.ts",
+        "models/report.ts",
+        "services/reportsList.ts",
+        "services/service.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
