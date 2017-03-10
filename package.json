@@ -1,0 +1,33 @@
+{
+  "name": "powerbi-ng2",
+  "version": "0.0.12",
+  "description": "Angular2 components for enumerating, rendering and interacting with reports hosted in an Azure PowerBI Embed workspace.",
+  "homepage": "https://github.com/infusion-code/powerbi-ng2/wiki",
+  "bugs": {
+    "url": "https://github.com/infusion-code/powerbi-ng2/issues",
+    "email": "tschueler@infusion.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infusion-code/powerbi-ng2"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc",
+    "watch": "tsc -w "
+  },
+  "keywords": [
+    "ng2",
+    "angular2",
+    "angular",
+    "powerbi",
+    "bigdata"
+  ],
+  "typings": "./dist/index.d.ts",
+  "author": "Thor Schueler",
+  "license": "MIT",
+  "dependencies": {
+    "angular2": "^2.0.0-beta.21"
+  }
+}
