@@ -2,6 +2,7 @@
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { Report } from './models/report';
 import { ReportFilter } from './components/reportFilter';
 import { ReportNavigation } from './components/reportNavigation';
@@ -15,7 +16,7 @@ import { ReportsListService } from './services/reportsList';
 export { Report, PowerBIService, ReportsListService, ReportNavigation, ReportViewer, ReportFilter, ReportsList, ReportDashboard }
 
 @NgModule({
-    imports: [CommonModule, HttpModule, RouterModule ],
+    imports: [CommonModule, HttpModule, RouterModule, FormsModule ],
     declarations: [ReportNavigation, ReportViewer, ReportFilter, ReportsList, ReportDashboard ],
     exports: [ReportNavigation, ReportViewer, ReportFilter, ReportsList, ReportDashboard ],
     providers: [PowerBIService, ReportsListService ]
