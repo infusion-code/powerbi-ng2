@@ -2,6 +2,10 @@
 node_modules
 npm-debug.log
 
+# angular aot files
+aot
+dist
+
 # OS generated files
 Thumbs.db
 .DS_Store

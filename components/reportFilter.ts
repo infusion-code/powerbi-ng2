@@ -2,6 +2,12 @@
 import { ReportViewer } from './reportViewer';
 import * as PowerBI from 'powerbi-client';
 
+/**
+ * Implements a component to filter a report for a given report viewer. 
+ * 
+ * @export
+ * @class ReportFilter
+ */
 @Component({
     selector: 'reportFilter',
     template: `
@@ -33,34 +39,42 @@ import * as PowerBI from 'powerbi-client';
     styles: [""]
 })
 export class ReportFilter {
+    ///
+    /// Field declarations
+    ///
+    private _viewer: ReportViewer = null;
+    private _filterValue: string = "";
+    private _filterTarget: string = "report";
+    private _filterTable: string = "";
+    private _filterColumn: string = "";
+    
+    ///
+    /// Property declarations
+    ///
+
+    /**
+     * Gets or sets the report viewer component to interact with. 
+     * 
+     * @type {ReportViewer}@memberof ReportFilter
+     */
     @Input()
         get ReportViewer(): ReportViewer { return this._viewer; }
         set ReportViewer(viewer: ReportViewer) { this._viewer = viewer; }
 
-    private _viewer: ReportViewer = null;
-    public filterTable: string = "";
-    public filterColumn: string = "";
-    private _filterValue: string = "";
-    private _filterTarget: string = "report";
+    ///
+    /// Public methods
+    ///
 
-    constructor() {
-
-    }
-
-    private Reset() {
-        this.filterTable = "";
-        this.filterColumn = "";
-        this._filterTarget = "report";
-        this._filterValue = "";
-    }
-
-
-    // For a complete guide to setting filters see the following wiki page
-    // https://github.com/Microsoft/PowerBI-JavaScript/wiki/Filters
+    /**
+     * Adds a report filter. For a complete guide to setting filters see the following wiki page
+     * https://github.com/Microsoft/PowerBI-JavaScript/wiki/Filters
+     * 
+     * @memberof ReportFilter
+     */
     public AddFilter() {
         let target = {
-            column: this.filterColumn,
-            table: this.filterTable
+            column: this._filterColumn,
+            table: this._filterTable
         }
         let op: PowerBI.models.BasicFilterOperators = "In";
         let values: string | number | boolean | Array<string> | Array<number> | Array<boolean> = [this._filterValue];
@@ -74,6 +88,29 @@ export class ReportFilter {
         this.Reset();    
     }
 
+    /**
+     * Clears all report filters.
+     * 
+     * @memberof ReportFilter
+     */
     public ClearFilters() { this._viewer.ClearFilters(); }
+
+
+    ///
+    /// Private methods
+    ///
+
+    /**
+     * Resets the filters.
+     * 
+     * @private
+     * @memberof ReportFilter
+     */
+    private Reset() {
+        this._filterTable = "";
+        this._filterColumn = "";
+        this._filterTarget = "report";
+        this._filterValue = "";
+    }
 
 }

@@ -4,6 +4,14 @@ import { Subscription } from 'rxjs/Subscription';
 import { ReportsListService } from '../services/reportsList';
 import { Report } from '../models/report';
 
+/**
+ * Implements a list of reports to be used in navigation component to route to report Dashboards.
+ * 
+ * @export
+ * @class ReportsList
+ * @implements {OnInit}
+ * @implements {OnDestroy}
+ */
 @Component({
     selector: 'reportsList',
     template: `
@@ -26,19 +34,58 @@ import { Report } from '../models/report';
     styles: ['']
 })
 export class ReportsList implements OnInit, OnDestroy {
+    ///
+    /// Field declarations
+    ///
     private _reports: Array<Report>;
     private _subscription: Subscription;
-    get Reports() { return this._reports; }
 
+    ///
+    /// Property declarations
+    ///
+
+    /**
+     * Gets the collection of {@link Report} objects available. 
+     * 
+     * @readonly
+     * @type {Array<Report>}
+     * @memberof ReportsList
+     */
+    public get Reports(): Array<Report> { return this._reports; }
+
+    ///
+    /// Constructor
+    ///
+
+    /**
+     * Creates an instance of ReportsList.
+     * @param {ReportsListService} _reportService - An instance of the ReportsListService to provide the data.  
+     * @memberof ReportsList
+     */
     constructor(private _reportService: ReportsListService) { }
+
+    ///
+    /// Public methods
+    ///
+
+    /**
+     * Initializes the component. Part of the ng component lifecycle. 
+     * 
+     * @memberof ReportsList
+     */
     public ngOnInit() {
         this._subscription = this._reportService.GetReports().subscribe(
             data => this._reports = data,
             error => console.log(error),
-            () => console.log("Data retrieval complete")
+            () => console.log('Data retrieval complete')
         );
     }
 
+    /**
+     * Frees up resources on component destruction. Part of the ng component lifecycle. 
+     * 
+     * @memberof ReportsList
+     */
     public ngOnDestroy() {
         if (this._subscription) this._subscription.unsubscribe();
     }
