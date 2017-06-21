@@ -20,6 +20,18 @@ export class ReportsListService {
     private _reports: Observable<Array<Report>>;
 
     ///
+    /// Property declarations
+    ///
+
+    /**
+     * Gets or set the service url base for the reports list service.
+     * 
+     * @type {string}@memberof ReportsListService
+     */
+    public get ServiceUrl():string { return this._serviceUrl; }
+    public set ServiceUrl(val:string) { this._serviceUrl = val; }
+
+    ///
     /// Constructor
     ///
 
