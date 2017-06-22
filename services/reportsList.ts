@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Report } from '../models/report';
@@ -59,9 +59,15 @@ export class ReportsListService {
         if (this._reports != null) return this._reports;
 
         let headers = new Headers();
+        let options:RequestOptionsArgs = { headers: headers };
         if(this._bearerToken && this._bearerToken !=='') headers.append('Authorization',`Bearer ${this._bearerToken}`);
+        else{
+            // this request likely uses cookies for authentication. So we'll add the withCredentials to enable
+            // passthrough. This is required for the Azure AD Oauth flow from client to server for example....
+            options.withCredentials = true;
+        }
     
-        this._reports =  this._http.get(this._serviceUrl + '/api/reports?includeTokens=true', { headers: headers })
+        this._reports =  this._http.get(this._serviceUrl + '/api/reports?includeTokens=true', options)
             .map((response: Response) => {
                 let r: Array<Report> = new Array<Report>();
                 for (let x of response.json()) r.push(new Report(x.id, x.name, x.accessToken, x.embedUrl));
