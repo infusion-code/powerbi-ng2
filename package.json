@@ -1,6 +1,6 @@
 {
   "name": "powerbi-ng2",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Angular2 components for enumerating, rendering and interacting with reports hosted in an Azure PowerBI Embed workspace.",
   "homepage": "https://github.com/infusion-code/powerbi-ng2/wiki",
   "bugs": {
