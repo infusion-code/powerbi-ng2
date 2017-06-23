@@ -54,11 +54,12 @@ export class ReportsListService {
      * @param {*} alternateHttpProvider - Optional. You can provide an alternate http implementation as an argument. This is mostly used for 
      * authenticating http providers such as ADAL that do not derive from http and can therefore not easly be depdency 
      * injected as http implementations.  
+     * @param {boolean} allowCredentials - Set to true to allowCredentials when no bearer token exists. Use false to prevent withCredentials. 
      * @returns {Observable<Array<Report>>} - An Observalbe containing the list of {@link Report} objects. 
      * @memberof ReportsListService
      */
-    public GetReports(alternateHttpProvider?: any): Observable<Array<Report>> {
-        if (alternateHttpProvider.get == null) throw("Alternate HTTP provider must implement get.")
+    public GetReports(alternateHttpProvider?: any, allowCredentials?: boolean): Observable<Array<Report>> {
+        if (alternateHttpProvider && alternateHttpProvider.get == null) throw("Alternate HTTP provider must implement get.")
         if (this._reports != null) return this._reports;
 
         let headers = new Headers();
@@ -67,7 +68,7 @@ export class ReportsListService {
         else{
             // this request likely uses cookies for authentication. So we'll add the withCredentials to enable
             // passthrough. This is required for the Azure AD Oauth flow from client to server for example....
-            options.withCredentials = true;
+            if(allowCredentials) options.withCredentials = true;
         }
         let x: any = alternateHttpProvider ? alternateHttpProvider : this._http;
         this._reports = x.get(this._serviceUrl + '/api/reports?includeTokens=true', options)
