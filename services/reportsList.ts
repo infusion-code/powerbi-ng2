@@ -51,11 +51,14 @@ export class ReportsListService {
 
     /**
      * Gets the available reports in the workspace including access tokens. 
-     * 
+     * @param {*} alternateHttpProvider - Optional. You can provide an alternate http implementation as an argument. This is mostly used for 
+     * authenticating http providers such as ADAL that do not derive from http and can therefore not easly be depdency 
+     * injected as http implementations.  
      * @returns {Observable<Array<Report>>} - An Observalbe containing the list of {@link Report} objects. 
      * @memberof ReportsListService
      */
-    public GetReports(): Observable<Array<Report>> {
+    public GetReports(alternateHttpProvider?: any): Observable<Array<Report>> {
+        if (alternateHttpProvider.get == null) throw("Alternate HTTP provider must implement get.")
         if (this._reports != null) return this._reports;
 
         let headers = new Headers();
@@ -66,8 +69,8 @@ export class ReportsListService {
             // passthrough. This is required for the Azure AD Oauth flow from client to server for example....
             options.withCredentials = true;
         }
-    
-        this._reports =  this._http.get(this._serviceUrl + '/api/reports?includeTokens=true', options)
+        let x: any = alternateHttpProvider ? alternateHttpProvider : this._http;
+        this._reports = x.get(this._serviceUrl + '/api/reports?includeTokens=true', options)
             .map((response: Response) => {
                 let r: Array<Report> = new Array<Report>();
                 for (let x of response.json()) r.push(new Report(x.id, x.name, x.accessToken, x.embedUrl));
