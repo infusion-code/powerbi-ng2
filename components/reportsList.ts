@@ -6,7 +6,7 @@ import { Report } from '../models/report';
 
 /**
  * Implements a list of reports to be used in navigation component to route to report Dashboards.
- * 
+ *
  * @export
  * @class ReportsList
  * @implements {OnInit}
@@ -24,7 +24,8 @@ import { Report } from '../models/report';
                 <div class="panel-body">
                     <ul class="nav navbar-nav">
                         <li *ngFor="let report of Reports" class="" [routerLinkActive]="['active']">
-                            <a [routerLink]="['/dashboard', report.Id, report.Name ]"  [queryParams] = "{ token: report.Token }">{{report.Name}}</a>
+                            <a [routerLink]="['/dashboard', report.Id, report.Name ]"
+                                [queryParams] = "{ token: report.Token }">{{report.Name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -45,8 +46,8 @@ export class ReportsList implements OnInit, OnDestroy {
     ///
 
     /**
-     * Gets the collection of {@link Report} objects available. 
-     * 
+     * Gets the collection of {@link Report} objects available.
+     *
      * @readonly
      * @type {Array<Report>}
      * @memberof ReportsList
@@ -59,7 +60,7 @@ export class ReportsList implements OnInit, OnDestroy {
 
     /**
      * Creates an instance of ReportsList.
-     * @param {ReportsListService} _reportService - An instance of the ReportsListService to provide the data.  
+     * @param {ReportsListService} _reportService - An instance of the ReportsListService to provide the data.
      * @memberof ReportsList
      */
     constructor(private _reportService: ReportsListService) { }
@@ -69,8 +70,8 @@ export class ReportsList implements OnInit, OnDestroy {
     ///
 
     /**
-     * Initializes the component. Part of the ng component lifecycle. 
-     * 
+     * Initializes the component. Part of the ng component lifecycle.
+     *
      * @memberof ReportsList
      */
     public ngOnInit() {
@@ -82,11 +83,11 @@ export class ReportsList implements OnInit, OnDestroy {
     }
 
     /**
-     * Frees up resources on component destruction. Part of the ng component lifecycle. 
-     * 
+     * Frees up resources on component destruction. Part of the ng component lifecycle.
+     *
      * @memberof ReportsList
      */
     public ngOnDestroy() {
-        if (this._subscription) this._subscription.unsubscribe();
+        if (this._subscription) { this._subscription.unsubscribe(); }
     }
 }

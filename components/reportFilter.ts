@@ -3,8 +3,8 @@ import { ReportViewer } from './reportViewer';
 import * as PowerBI from 'powerbi-client';
 
 /**
- * Implements a component to filter a report for a given report viewer. 
- * 
+ * Implements a component to filter a report for a given report viewer.
+ *
  * @export
  * @class ReportFilter
  */
@@ -17,49 +17,98 @@ import * as PowerBI from 'powerbi-client';
         <form id="filter-form">
             <div class="form-group">
                 <label for="filter-target">Target</label>
-                <select id="filter-target" class="form-control" [(ngModel)]="_filterTarget" name="s1">
+                <select id="filter-target" class="form-control" [(ngModel)]="FilterTarget" name="s1">
                     <option value="report">Report</option>
                     <option value="page">Page</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="filter-table">Table</label>
-                <input type="text" class="form-control" id="filter-table" [(ngModel)]="filterTable" name="t1"/>
+                <input type="text" class="form-control" id="filter-table" [(ngModel)]="FilterTable" name="t1"/>
             </div>
             <div class="form-group">
                 <label for="filter-column">Column / Measure</label>
-                <input type="text" class="form-control" id="filter-column" [(ngModel)]="filterColumn" name="t2" />
+                <input type="text" class="form-control" id="filter-column" [(ngModel)]="FilterColumn" name="t2" />
             </div>
             <div class="form-group">
                 <label for="filter-value">Value</label>
-                <input type="text" class="form-control" id="filter-value" [(ngModel)]="_filterValue" name="t3"/>
+                <input type="text" class="form-control" id="filter-value" [(ngModel)]="FilterValue" name="t3"/>
             </div>
             <button id="filter-add" type="button" class="btn btn-success" (click)=AddFilter()>Add Filter</button>
         </form>`,
-    styles: [""]
+    styles: []
 })
 export class ReportFilter {
     ///
     /// Field declarations
     ///
     private _viewer: ReportViewer = null;
-    private _filterValue: string = "";
-    private _filterTarget: string = "report";
-    private _filterTable: string = "";
-    private _filterColumn: string = "";
-    
+    private _filterValue: string = '';
+    private _filterTarget: string = 'report';
+    private _filterTable: string = '';
+    private _filterColumn: string = '';
+
     ///
     /// Property declarations
     ///
 
     /**
-     * Gets or sets the report viewer component to interact with. 
-     * 
-     * @type {ReportViewer}@memberof ReportFilter
+     * Gets or sets the column targeted by the filter to add.
+     * @type {string}
+     * @memberof ReportFilter
+     * @property
+     * @public
+     */
+    public get FilterColumn(): string { return this._filterColumn; }
+    public set FilterColumn(val: string) { this._filterColumn = val; }
+
+    /**
+     * Gets or sets the table targeted by the filter to add.
+     * @type {string}
+     * @memberof ReportFilter
+     * @property
+     * @public
+     */
+    public get FilterTable(): string { return this._filterTable; }
+    public set FilterTable(val: string) { this._filterTable = val; }
+
+    /**
+     * Gets or sets the filter target of a filter to add. Expected values are Report or Page.
+     * @type {string}
+     * @memberof ReportFilter
+     * @property
+     * @public
+     */
+    public get FilterTarget(): string { return this._filterTarget; }
+    public set FilterTarget(val: string) {
+        if (val.toLowerCase() !== 'report' && val.toLowerCase() !== 'page') {
+            console.log (`Unexpected value ${val} for FilterTarge. Expected 'report' or 'page'. Ignoring...`);
+            return;
+        }
+        this._filterTarget = val.toLowerCase();
+    }
+
+    /**
+     * Gets or sets the filter value of a filter to add
+     * @type {string}
+     * @memberof ReportFilter
+     * @property
+     * @public
+     */
+    public get FilterValue(): string { return this._filterValue; }
+    public set FilterValue(val: string) { this._filterValue = val; }
+
+    /**
+     * Gets or sets the report viewer component to interact with.
+     *
+     * @type {ReportViewer}
+     * @memberof ReportFilter
+     * @property
+     * @public
      */
     @Input()
-        get ReportViewer(): ReportViewer { return this._viewer; }
-        set ReportViewer(viewer: ReportViewer) { this._viewer = viewer; }
+        public get ReportViewer(): ReportViewer { return this._viewer; }
+        public set ReportViewer(viewer: ReportViewer) { this._viewer = viewer; }
 
     ///
     /// Public methods
@@ -68,29 +117,29 @@ export class ReportFilter {
     /**
      * Adds a report filter. For a complete guide to setting filters see the following wiki page
      * https://github.com/Microsoft/PowerBI-JavaScript/wiki/Filters
-     * 
+     *
      * @memberof ReportFilter
      */
     public AddFilter() {
-        let target = {
+        const target = {
             column: this._filterColumn,
             table: this._filterTable
         }
-        let op: PowerBI.models.BasicFilterOperators = "In";
-        let values: string | number | boolean | Array<string> | Array<number> | Array<boolean> = [this._filterValue];
-        let basicFilter = {
-            $schema: "http://powerbi.com/product/schema#basic",
+        const op: PowerBI.models.BasicFilterOperators = 'In';
+        const values: string | number | boolean | Array<string> | Array<number> | Array<boolean> = [this._filterValue];
+        const basicFilter = {
+            $schema: 'http://powerbi.com/product/schema#basic',
             target: target,
             operator: op,
             values: values
         };
-        this._viewer.ApplyFilter(<PowerBI.models.IFilter>basicFilter, this._filterTarget);
-        this.Reset();    
+        this._viewer.ApplyFilter(<PowerBI.models.IBasicFilter>basicFilter, this._filterTarget);
+        this.Reset();
     }
 
     /**
      * Clears all report filters.
-     * 
+     *
      * @memberof ReportFilter
      */
     public ClearFilters() { this._viewer.ClearFilters(); }
@@ -102,15 +151,15 @@ export class ReportFilter {
 
     /**
      * Resets the filters.
-     * 
+     *
      * @private
      * @memberof ReportFilter
      */
     private Reset() {
-        this._filterTable = "";
-        this._filterColumn = "";
-        this._filterTarget = "report";
-        this._filterValue = "";
+        this._filterTable = '';
+        this._filterColumn = '';
+        this._filterTarget = 'report';
+        this._filterValue = '';
     }
 
 }

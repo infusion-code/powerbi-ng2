@@ -24,12 +24,12 @@ import { ReportDashboard } from './components/reportDashboard';
 import { PowerBIService } from './services/service';
 import { ReportsListService } from './services/reportsList';
 import { DocumentRef} from './services/documentRef';
-import { WindowRef } from './services/windowRef'; 
+import { WindowRef } from './services/windowRef';
 
 /**
  * Create barrel
  */
-export { 
+export {
     Report,
     WindowRef,
     DocumentRef,
@@ -44,45 +44,45 @@ export {
 
 /**
  * Module definition.
- * 
+ *
  * @export
  * @class PowerBIModule
  */
 @NgModule({
     imports: [
-        CommonModule, 
-        HttpModule, 
-        RouterModule, 
-        FormsModule 
+        CommonModule,
+        HttpModule,
+        RouterModule,
+        FormsModule
     ],
     declarations: [
-        ReportNavigation, 
-        ReportViewer, 
-        ReportFilter, 
-        ReportsList, 
-        ReportDashboard 
+        ReportNavigation,
+        ReportViewer,
+        ReportFilter,
+        ReportsList,
+        ReportDashboard
     ],
     exports: [
-        ReportNavigation, 
-        ReportViewer, 
-        ReportFilter, 
-        ReportsList, 
-        ReportDashboard 
+        ReportNavigation,
+        ReportViewer,
+        ReportFilter,
+        ReportsList,
+        ReportDashboard
     ]
 })
 export class PowerBIModule {
 
     /**
      * Call forRoot() when importing the module in the application root module to create app wide services.
-     * Only call forRoot() once in your application. 
-     * 
+     * Only call forRoot() once in your application.
+     *
      * @static
      * @param {string} webAPIServiceUrl - the url of the WebAPI service listing the reports and access tokens in the PowerBI workspace.
      * @param {string} bearerToken - OAuth token to use to access the web api (if secured).
      * @returns {ModuleWithProviders} - A module with injectable providers.
      * @memberof PowerBIModule
      */
-    static forRoot(webAPIServiceUrl: string, bearerToken?: string): ModuleWithProviders{
+    static forRoot(webAPIServiceUrl: string, bearerToken?: string): ModuleWithProviders {
         WebAPIServiceUrl = webAPIServiceUrl;
         BearerToken = bearerToken;
         return {

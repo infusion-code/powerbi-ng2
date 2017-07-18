@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 /**
- * Implements a compound component displaying a report including navigation and filter panel. This component obtains report id and 
- * access token from the route. 
- * 
+ * Implements a compound component displaying a report including navigation and filter panel. This component obtains report id and
+ * access token from the route.
+ *
  * @export
  * @class ReportDashboard
  * @implements {OnInit}
@@ -24,9 +24,7 @@ import { Subscription } from 'rxjs/Subscription';
             </div>
         </div>
     `,
-    styles: [
-
-    ]
+    styles: []
 })
 export class ReportDashboard implements OnInit, OnDestroy {
     ///
@@ -44,16 +42,16 @@ export class ReportDashboard implements OnInit, OnDestroy {
     ///
 
     /**
-     * Gets the report id. 
-     * 
+     * Gets the report id.
+     *
      * @readonly
      * @memberof ReportDashboard
      */
     public get ReportId() { return this._id; }
-    
+
     /**
-     * Gets the access token. 
-     * 
+     * Gets the access token.
+     *
      * @readonly
      * @memberof ReportDashboard
      */
@@ -61,14 +59,14 @@ export class ReportDashboard implements OnInit, OnDestroy {
 
     /**
      * Creates an instance of ReportDashboard.
-     * @param {ActivatedRoute} route - The current route. Used to obtain report id and access token. 
+     * @param {ActivatedRoute} route - The current route. Used to obtain report id and access token.
      * @memberof ReportDashboard
      */
     constructor(route: ActivatedRoute) { this._route = route; }
 
     /**
-     * Intiializes the component. part of the ng2 component lifecycle. Obtains report parameters from route. 
-     * 
+     * Intiializes the component. part of the ng2 component lifecycle. Obtains report parameters from route.
+     *
      * @memberof ReportDashboard
      */
     public ngOnInit(): void {
@@ -82,13 +80,12 @@ export class ReportDashboard implements OnInit, OnDestroy {
     }
 
     /**
-     * Frees up resources on component destruction. 
-     * 
+     * Frees up resources on component destruction.
+     *
      * @memberof ReportDashboard
      */
     public ngOnDestroy() {
-        if (this._parameterSubscription) this._parameterSubscription.unsubscribe();
-        if (this._querySubscription) this._querySubscription.unsubscribe();
+        if (this._parameterSubscription) { this._parameterSubscription.unsubscribe(); }
+        if (this._querySubscription) { this._querySubscription.unsubscribe(); }
     }
-
 }
