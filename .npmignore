@@ -2,6 +2,9 @@
 node_modules
 npm-debug.log
 
+# Samples
+samples
+
 # OS generated files
 Thumbs.db
 .DS_Store
