@@ -14,7 +14,7 @@ Install via npm:
 Import the module into your main module (generally app.module.ts):
 
 ```
-    import { PowerBIModule } from 'powerbi-ng2';
+    import { PowerBIModule, ReportListServiceFactory } from 'powerbi-ng2';
 
     let _reportsListAPIEndPoint: string = "end point of your reports list Web API enumerating the reports and providing accesss tokens";
 
