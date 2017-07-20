@@ -6,6 +6,13 @@ import { Report } from '../models/report';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
+
+@Injectable()
+export class ReportsListServiceConfig  {
+    WebAPIServiceUrl: string = '';
+    BearerToken?: string = '';
+}
+
 /**
  *  Injectable sevice providing a list of available reports in the workspace.
  *
@@ -28,8 +35,15 @@ export class ReportsListService {
      *
      * @type {string}@memberof ReportsListService
      */
-    public get ServiceUrl(): string { return this._serviceUrl; }
-    public set ServiceUrl(val: string) { this._serviceUrl = val; }
+    public get ServiceUrl(): string {
+        let u: string = '';
+        if (this._config) { u = this._config.WebAPIServiceUrl; }
+        return u;
+    }
+    public set ServiceUrl(val: string) {
+        if (this._config == null) { this._config = new ReportsListServiceConfig(); }
+        this._config.WebAPIServiceUrl = val;
+    }
 
     ///
     /// Constructor
@@ -43,7 +57,7 @@ export class ReportsListService {
      * @param {string} _bearerToken - OAuth token to use to access the web api (if secured).
      * @memberof ReportsListService
      */
-    constructor(private _http: Http, private _serviceUrl: string, private _bearerToken: string) {}
+    constructor(private _http: Http, private _config: ReportsListServiceConfig) {}
 
     ///
     /// Public methods
@@ -65,14 +79,14 @@ export class ReportsListService {
 
         const headers = new Headers();
         const options: RequestOptionsArgs = { headers: headers };
-        if (this._bearerToken && this._bearerToken !== '') { headers.append('Authorization', `Bearer ${this._bearerToken}`); }
+        if (this._config && this._config.BearerToken !== '') { headers.append('Authorization', `Bearer ${this._config.BearerToken}`); }
         else {
             // this request likely uses cookies for authentication. So we'll add the withCredentials to enable
             // passthrough. This is required for the Azure AD Oauth flow from client to server for example....
             if (allowCredentials) { options.withCredentials = true; }
         }
         const x: any = alternateHttpProvider ? alternateHttpProvider : this._http;
-        this._reports = x.get(this._serviceUrl + '/api/reports?includeTokens=true', options)
+        this._reports = x.get(this.ServiceUrl + '/api/reports?includeTokens=true', options)
             .map((response: Response) => {
                 const r: Array<Report> = new Array<Report>();
                 for (const z of response.json()) { r.push(new Report(z.id, z.name, z.accessToken, z.embedUrl)); }

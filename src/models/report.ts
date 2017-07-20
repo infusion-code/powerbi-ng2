@@ -1,6 +1,6 @@
 ﻿/**
  * Model for a PowerBI embed report with token.
- * 
+ *
  * @export
  * @class Report
  */
@@ -18,35 +18,35 @@ export class Report {
     ///
 
     /**
-     * Gets the report Id. 
-     * 
+     * Gets the report Id.
+     *
      * @readonly
      * @type {string}
      * @memberof Report
      */
     public get Id(): string { return this._id; }
-    
+
     /**
      * Gets the report name
-     * 
+     *
      * @readonly
      * @type {string}
      * @memberof Report
      */
     public get Name(): string { return this._name; }
-    
+
     /**
      * Gets the report URL
-     * 
+     *
      * @readonly
      * @type {string}
      * @memberof Report
      */
     public get Url(): string { return this._url; }
-    
+
     /**
      * Gets the report access token.
-     * 
+     *
      * @readonly
      * @type {string}
      * @memberof Report
@@ -55,7 +55,7 @@ export class Report {
 
     /**
      * Creates an instance of Report.
-     * @param {string} id - Report id. 
+     * @param {string} id - Report id.
      * @param {string} name - Report name
      * @param {string} token - Report access token.
      * @param {string} url - Report url.

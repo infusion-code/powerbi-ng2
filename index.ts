@@ -7,24 +7,24 @@ import { FormsModule } from '@angular/forms';
 /**
  * Import models
  */
-import { Report } from './models/report';
+import { Report } from './src/models/report';
 
 /**
  * Import components
  */
-import { ReportFilter } from './components/reportFilter';
-import { ReportNavigation } from './components/reportNavigation';
-import { ReportViewer } from './components/reportViewer';
-import { ReportsList } from './components/reportsList'
-import { ReportDashboard } from './components/reportDashboard';
+import { ReportFilter } from './src/components/reportFilter';
+import { ReportNavigation } from './src/components/reportNavigation';
+import { ReportViewer } from './src/components/reportViewer';
+import { ReportsList } from './src/components/reportsList'
+import { ReportDashboard } from './src/components/reportDashboard';
 
 /**
  * Import services
  */
-import { PowerBIService } from './services/service';
-import { ReportsListService } from './services/reportsList';
-import { DocumentRef} from './services/documentRef';
-import { WindowRef } from './services/windowRef';
+import { PowerBIService } from './src/services/service';
+import { ReportsListService, ReportsListServiceConfig } from './src/services/reportsList';
+import { DocumentRef} from './src/services/documentRef';
+import { WindowRef } from './src/services/windowRef';
 
 /**
  * Create barrel
@@ -35,6 +35,7 @@ export {
     DocumentRef,
     PowerBIService,
     ReportsListService,
+    ReportsListServiceConfig,
     ReportNavigation,
     ReportViewer,
     ReportFilter,
@@ -63,6 +64,7 @@ export {
         ReportDashboard
     ],
     exports: [
+        CommonModule,
         ReportNavigation,
         ReportViewer,
         ReportFilter,
@@ -82,13 +84,12 @@ export class PowerBIModule {
      * @returns {ModuleWithProviders} - A module with injectable providers.
      * @memberof PowerBIModule
      */
-    static forRoot(webAPIServiceUrl: string, bearerToken?: string): ModuleWithProviders {
-        WebAPIServiceUrl = webAPIServiceUrl;
-        BearerToken = bearerToken;
+    static forRoot(config?: ReportsListServiceConfig): ModuleWithProviders {
         return {
             ngModule: PowerBIModule,
             providers: [
-                { provide: ReportsListService, deps: [Http], useFactory: ReportListServiceFactory },
+                config ? { provide: ReportsListServiceConfig, useValue: config } : ReportsListServiceConfig,
+                { provide: ReportsListService, deps: [Http, ReportsListServiceConfig], useFactory: ReportsListServiceFactory },
                 PowerBIService,
                 WindowRef,
                 DocumentRef
@@ -98,9 +99,6 @@ export class PowerBIModule {
     }
 }
 
-let WebAPIServiceUrl: string = '';
-let BearerToken: string = '';
-
 /**
  * Factory function to the ReportsListService.
  *
@@ -108,6 +106,6 @@ let BearerToken: string = '';
  * @param {Http} http - An instance of the http service.
  * @returns {ReportsListService} - An instance of the {@link ReportsListService}.
  */
-export function ReportListServiceFactory(http: Http): ReportsListService {
-    return new ReportsListService(http, WebAPIServiceUrl, BearerToken);
+export function ReportsListServiceFactory(http: Http, config: ReportsListServiceConfig): ReportsListService {
+    return new ReportsListService(http, config);
 }
