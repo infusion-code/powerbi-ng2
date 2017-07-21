@@ -2,7 +2,7 @@
 import { Subscription } from 'rxjs/Subscription';
 import { PowerBIService } from '../services/service';
 import { ReportsListService } from '../services/reportsList'
-import { Report, Page, IEmbedConfiguration, models} from 'powerbi-client';
+import { Report, Page, IEmbedConfiguration, models, service } from 'powerbi-client';
 
 /**
  * Report Viewer component to display a powerbi report using the powerbi javascript api.
@@ -254,14 +254,14 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
         const that: ReportViewer = this;
         this._report.on('loaded', function () {
             console.log('PowerBIDemo: Loaded report with id \'%s\'.', that._reportId);
-            that._report.getPages().then(function (reportPages) {
+            that._report.getPages().then(function (reportPages: Array<Page>) {
                 that._pages = reportPages;
                 if (that._pages.length > 0) { that._pages[0].setActive(); }
             });
         });
 
-        this._report.on('pageChanged', function (e) {
-            that._currentPage = <Page>((<any>e.detail)['newPage']);
+        this._report.on('pageChanged', function (e: service.ICustomEvent<Array<Page>>) {
+            that._currentPage = (<any>e.detail)['newPage'];
             if (that._pages == null || that._pages.length === 0) {
                 return;
             }

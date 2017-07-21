@@ -1,6 +1,6 @@
 ﻿import { Component, Input } from '@angular/core';
 import { ReportViewer } from './reportViewer';
-import * as PowerBI from 'powerbi-client';
+import { models } from 'powerbi-client';
 
 /**
  * Implements a component to filter a report for a given report viewer.
@@ -125,7 +125,7 @@ export class ReportFilter {
             column: this._filterColumn,
             table: this._filterTable
         }
-        const op: PowerBI.models.BasicFilterOperators = 'In';
+        const op: models.BasicFilterOperators = 'In';
         const values: string | number | boolean | Array<string> | Array<number> | Array<boolean> = [this._filterValue];
         const basicFilter = {
             $schema: 'http://powerbi.com/product/schema#basic',
@@ -133,7 +133,7 @@ export class ReportFilter {
             operator: op,
             values: values
         };
-        this._viewer.ApplyFilter(<PowerBI.models.IBasicFilter>basicFilter, this._filterTarget);
+        this._viewer.ApplyFilter(<models.IBasicFilter>basicFilter, this._filterTarget);
         this.Reset();
     }
 

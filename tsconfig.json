@@ -14,17 +14,7 @@
         "types": ["node"]
     },
     "files": [
-        "index.ts",
-        "components/reportDashboard.ts",
-        "components/reportFilter.ts",
-        "components/reportNavigation.ts",
-        "components/reportsList.ts",
-        "components/reportViewer.ts",
-        "models/report.ts",
-        "services/reportsList.ts",
-        "services/service.ts",
-        "services/windowRef.ts",
-        "services/documentRef.ts"
+        "index.ts"
     ],
     "exclude": [
         "node_modules"

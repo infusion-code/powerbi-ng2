@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { WindowRef } from './windowRef';
-import * as pbi from 'powerbi-client';
+import { service, factories, IEmbedConfiguration, Embed } from 'powerbi-client';
 
 /**
  * Wrapper for the Microsoft Javascript PowerBI client. This wrapper is browser aware in order to correctly
@@ -15,8 +15,7 @@ export class PowerBIService {
     ///
     /// Field declarations
     ///
-    private _powerBiCoreService: pbi.service.Service;
-    private _pbi: any;
+    private _powerBiCoreService: service.Service;
     private _isBrowser: boolean = false;
 
     ///
@@ -33,11 +32,10 @@ export class PowerBIService {
         // create a service instance
         if (this._windowRef.IsAvailable) {
             this._isBrowser = true;
-            this._pbi = require('powerbi-client');
-            this._powerBiCoreService = <pbi.service.Service>new this._pbi.service.Service(
-                                        this._pbi.factories.hpmFactory,
-                                        this._pbi.factories.wpmpFactory,
-                                        this._pbi.factories.routerFactory);
+            this._powerBiCoreService = new service.Service(
+                factories.hpmFactory,
+                factories.wpmpFactory,
+                factories.routerFactory);
         }
     }
 
@@ -53,7 +51,7 @@ export class PowerBIService {
      * @returns {pbi.Embed} - A {@link pbi.Embed} object representing the embeded report.
      * @memberof PowerBIService
      */
-    public embed(element: HTMLElement, config: pbi.IEmbedConfiguration): pbi.Embed {
+    public embed(element: HTMLElement, config: IEmbedConfiguration): Embed {
         if (!this._isBrowser) { return this.HandleBrowserContextError(); }
         return this._powerBiCoreService.embed(element, config);
     }
@@ -65,7 +63,7 @@ export class PowerBIService {
      * @returns {pbi.Embed} - A {@link pbi.Embed} object representing the embeded report.
      * @memberof PowerBIService
      */
-    public get(element: HTMLElement): pbi.Embed {
+    public get(element: HTMLElement): Embed {
         if (!this._isBrowser) { return this.HandleBrowserContextError(); }
         return this._powerBiCoreService.get(element);
     }
@@ -77,7 +75,7 @@ export class PowerBIService {
      * @returns {pbi.Embed} - A PowerBI report or tile object matching the id.
      * @memberof PowerBIService
      */
-    public find(uniqueId: string): pbi.Embed {
+    public find(uniqueId: string): Embed {
         if (!this._isBrowser) { return this.HandleBrowserContextError(); }
         return this._powerBiCoreService.find(uniqueId);
     }
