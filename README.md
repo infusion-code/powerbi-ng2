@@ -33,7 +33,7 @@ Import the module into your main module (generally app.module.ts):
         ]
     })
 ```
-> <b>Note:</b> This module depends on the [Microsoft PowerBIEmbed Javascript API](https://github.com/Microsoft/PowerBI-JavaScript). Version 2.3.2 and 2.3.3 introduced naming based incompatibilities [See Issue #225](https://github.com/Microsoft/PowerBI-JavaScript/issues/225). For the time being, we locked to Version 2.3.1 until this is resolved. 
+> <b>Note:</b> This module depends on the [Microsoft PowerBIEmbed Javascript API](https://github.com/Microsoft/PowerBI-JavaScript). Version 2.3.2 and 2.3.3 introduced naming based incompatibilities [See Issue #225](https://github.com/Microsoft/PowerBI-JavaScript/issues/225). Therefore, the module requires 2.3.4 or higher as a dependency. 
 
 > <b>Note:</b> If you use this module in conjunction with Universal (ng2), make sure to include PowerBIModule before UniversalModule as there is a conflict between the standard ng http module imported by it and the ony used by Universal. See [https://github.com/angular/universal-starter/issues/167] and [https://github.com/angular/universal/issues/536#issuecomment-247762794] for more information.
 
