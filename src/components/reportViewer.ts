@@ -7,9 +7,10 @@ import { Report, Page, IEmbedConfiguration, models, service } from 'powerbi-clie
 /**
  * Report Viewer component to display a powerbi report using the powerbi javascript api.
  *
- * @export
  * @class ReportViewer
- * @implements {AfterViewInit}
+ * @implements AfterViewInit
+ * @export
+ * @component
  */
 @Component({
     selector: 'reportViewer',
@@ -43,7 +44,10 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
     /**
      * Gets or sets the Id of the report
      *
+     * @type string
      * @memberof ReportViewer
+     * @property
+     * @public
      */
     @Input()
         public set Id(id: string) {
@@ -57,7 +61,10 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
     /**
      * Gets or sets the access token to use to render the report
      *
+     * @type string
      * @memberof ReportViewer
+     * @property
+     * @public
      */
     @Input()
         public set Token(token: string) {
@@ -70,24 +77,33 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
     /**
      * Gets the current report page.
      *
+     * @type Page
+     * @memberof ReportViewer
      * @readonly
-     * @type {Page}@memberof ReportViewer
+     * @property
+     * @public
      */
     public get CurrentPage(): Page { return this._currentPage; }
 
     /**
      * Gets the pages in the report.
      *
+     * @type Array<Page>
+     * @memberof ReportViewer
      * @readonly
-     * @type {Array<Page>}@memberof ReportViewer
+     * @property
+     * @public
      */
     public get Pages(): Array<Page> { return this._pages; }
 
     /**
      * Gets the index of the current page.
      *
+     * @type {number}
+     * @memberof ReportViewer
      * @readonly
-     * @type {number}@memberof ReportViewer
+     * @property
+     * @public
      */
     public get PageIndex(): number { return this._pageIndex; }
 
@@ -95,14 +111,20 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
     /**
      * Emits a Report object when the report is successfully embeded.
      *
+     * @type Report
      * @memberof ReportViewer
+     * @event
+     * @public
      */
     @Output() OnEmbedded = new EventEmitter<Report>();
 
     /**
      * Emits a Page object when the report page changes.
      *
+     * @type Page
      * @memberof ReportViewer
+     * @event
+     * @public
      */
     @Output() OnPageChanged = new EventEmitter<Page>();
 
@@ -115,6 +137,8 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
      * @param {PowerBIService} embedService - An instance of the powerbi embed service wrapping the powerbi API.
      * @param {ReportsListService} reportsListService - An instance of the reports list service providing access tokens for the reports.
      * @memberof ReportViewer
+     * @constructor
+     * @public
      */
     constructor(embedService: PowerBIService, reportsListService: ReportsListService) {
         this._service = embedService;
@@ -133,6 +157,8 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
      * @param {models.IFilter} filter - A filter object specifying the filter to apply.
      * @param {string} target - that target (either page or report).
      * @memberof ReportViewer
+     * @method
+     * @public
      */
     public ApplyFilter(filter: models.IFilter, target: string): void {
         const filterTarget: Page | Report = target.toLowerCase() === 'page' ? this._currentPage : this._report;
@@ -149,6 +175,8 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
      * more detail
      *
      * @memberof ReportViewer
+     * @method
+     * @public
      */
     public ClearFilters(): void {
         this._report.removeFilters();
@@ -161,6 +189,8 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
      * Initializes the component. Part of the ng component lifecycle.
      *
      * @memberof ReportViewer
+     * @method
+     * @public
      */
     public ngAfterViewInit(): void {
         if (this._token == null) {
@@ -177,6 +207,8 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
      * Frees up resources when component is destroyed. Part of the ng component lifecycle.
      *
      * @memberof ReportViewer
+     * @method
+     * @public
      */
     public ngOnDestroy(): void {
         if (this._subscription) { this._subscription.unsubscribe(); }
@@ -188,6 +220,8 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
      *
      * @param {HTMLElement} element
      * @memberof ReportViewer
+     * @method
+     * @public
      */
     public Reset(element: HTMLElement): void {
         this._service.reset(element);
@@ -201,6 +235,8 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
      * @param {string} settingName - The name of the setting to update.
      * @param {*} value - The value for the setting.
      * @memberof ReportViewer
+     * @method
+     * @public
      */
     public UpdateSetting(settingName: string, value: any): void {
         const settings: models.ISettings = {};
@@ -217,8 +253,9 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
      *
      * @private
      * @param {string} [token] - Access token to use to render the report.
-     * @returns {void}
      * @memberof ReportViewer
+     * @method
+     * @private
      */
     private Embed(token?: string): void {
         const t: string = token ? token : this._token;
@@ -276,11 +313,11 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
     /**
      * Loads the report for the viewer.
      *
-     * @private
-     * @returns
      * @memberof ReportViewer
+     * @method
+     * @private
      */
-    private Load() {
+    private Load(): void {
         const payload = (t?: string) => {
             const config: models.IReportLoadConfiguration = {
                 accessToken: t ? t : this.Token,
@@ -301,9 +338,10 @@ export class ReportViewer implements AfterViewInit, OnDestroy {
     /**
      * Validates the required parameters.
      *
-     * @private
      * @returns {boolean} - true if validation succeeds, false otherwise.
      * @memberof ReportViewer
+     * @method
+     * @private
      */
     private ValidateRequiredAttributes(): boolean {
         return (typeof this._embedUrl === 'string'

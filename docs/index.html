@@ -1,0 +1,223 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>&#x27;PowerBi-Ng2</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">&#x27;PowerBi-Ng2</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> &#x27;PowerBi-Ng2</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p><a href="https://www.npmjs.com/package/powerbi-ng2"><img src="https://badge.fury.io/js/powerbi-ng2.svg" alt="npm version"></a> <img src="https://img.shields.io/npm/dm/powerbi-ng2.svg" alt="powerbi-ng2"> <a href="#contributors"><img src="https://img.shields.io/badge/all_contributors-3-green.svg?style=flat-square" alt="All Contributors"></a></p>
+				<h1 id="overview">Overview</h1>
+				<p>Angular components for enumerating, rendering and interacting with reports hosted in an Azure PowerBI Embed workspace. This package will work with both ng2 and ng4.</p>
+				<h1 id="install">Install</h1>
+				<p>Install via npm:</p>
+				<pre><code>    npm <span class="hljs-keyword">install</span> <span class="hljs-comment">--save powerbi-ng2</span>
+</code></pre><h1 id="use">Use</h1>
+				<p>Import the module into your main module (generally app.module.ts):</p>
+				<pre><code>    import { <span class="hljs-type">PowerBIModule</span>, <span class="hljs-type">ReportsListServiceConfig</span> } from <span class="hljs-symbol">'powerbi</span>-ng2';
+
+    <span class="hljs-keyword">let</span> _reportsListAPIEndPoint: <span class="hljs-built_in">string</span> = <span class="hljs-string">"end point of your reports list Web API enumerating the reports and providing accesss tokens"</span>;
+
+    const config:<span class="hljs-type">ReportsListServiceConfig</span> = {
+        <span class="hljs-type">WebAPIServiceUrl</span>: <span class="hljs-symbol">'end</span> point <span class="hljs-keyword">of</span> your reports <span class="hljs-built_in">list</span> <span class="hljs-type">Web</span> <span class="hljs-type">API</span> enumerating the reports <span class="hljs-keyword">and</span> providing accesss tokens'
+    };
+
+    @<span class="hljs-type">NgModule</span>({
+        bootstrap: [ ... ],
+        declarations: [
+            ...
+        ],
+        imports: [
+            <span class="hljs-type">PowerBIModule</span>.forRoot(config)
+            ...
+        ]
+    })
+</code></pre><blockquote>
+					<p><b>Note:</b> This module depends on the <a href="https://github.com/Microsoft/PowerBI-JavaScript">Microsoft PowerBIEmbed Javascript API</a>. Version 2.3.2 and 2.3.3 introduced naming based incompatibilities <a href="https://github.com/Microsoft/PowerBI-JavaScript/issues/225">See Issue #225</a>. Therefore, the module requires 2.3.4 or higher as a dependency. </p>
+					<p><b>Note:</b> If you use this module in conjunction with Universal (ng2), make sure to include PowerBIModule before UniversalModule as there is a conflict between the standard ng http module imported by it and the ony used by Universal. See [<a href="https://github.com/angular/universal-starter/issues/167">https://github.com/angular/universal-starter/issues/167</a>] and [<a href="https://github.com/angular/universal/issues/536#issuecomment-247762794">https://github.com/angular/universal/issues/536#issuecomment-247762794</a>] for more information.</p>
+				</blockquote>
+				<p>Use the various components inside your angular components. Use the ReportsListService to get a list of available reports from your workspace for navigation purposes and to get embed tokens for a particular report (alternatives, you can use the ReportsList component for that purpose).</p>
+				<p>Note that the components depend on a service endpoint (_reportsListAPIEndPoint above) for enumreation of reports and token generation. See <a href="samples/ReportingApi">Sample Report Service</a> for a sample implementation of such a service using .NET Web Api 2.0. </p>
+				<h1 id="advanced">Advanced</h1>
+				<p>Check out the <a href="../../wiki">Wiki</a> for detailed documentation on components, models and providers.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/documentref.html" class="tsd-kind-icon">Document<wbr>Ref</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/powerbimodule.html" class="tsd-kind-icon">PowerBIModule</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/powerbiservice.html" class="tsd-kind-icon">PowerBIService</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/report.html" class="tsd-kind-icon">Report</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/reportdashboard.html" class="tsd-kind-icon">Report<wbr>Dashboard</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/reportfilter.html" class="tsd-kind-icon">Report<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/reportnavigation.html" class="tsd-kind-icon">Report<wbr>Navigation</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/reportviewer.html" class="tsd-kind-icon">Report<wbr>Viewer</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/reportslist.html" class="tsd-kind-icon">Reports<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/reportslistservice.html" class="tsd-kind-icon">Reports<wbr>List<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/reportslistserviceconfig.html" class="tsd-kind-icon">Reports<wbr>List<wbr>Service<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/windowref.html" class="tsd-kind-icon">Window<wbr>Ref</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#reportslistservicefactory" class="tsd-kind-icon">Reports<wbr>List<wbr>Service<wbr>Factory</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

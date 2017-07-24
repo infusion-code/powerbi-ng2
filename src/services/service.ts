@@ -5,10 +5,12 @@ import { service, factories, IEmbedConfiguration, Embed } from 'powerbi-client';
 /**
  * Wrapper for the Microsoft Javascript PowerBI client. This wrapper is browser aware in order to correctly
  * work with AOT and server side rendering. Unfortunately, reports cannot be serverside rendered but will be rendered
- * once teh state is shipped to the client.
+ * once the state is shipped to the client.
  *
- * @export
  * @class PowerBIService
+ * @export
+ * @service
+ * @injectable
  */
 @Injectable()
 export class PowerBIService {
@@ -27,6 +29,8 @@ export class PowerBIService {
      *
      * @param {WindowRef} _windowRef - an instance of {@link WindowRef} to determine availability of client side context.
      * @memberof PowerBIService
+     * @constructor
+     * @public
      */
     constructor(private _windowRef: WindowRef) {
         // create a service instance
@@ -50,6 +54,8 @@ export class PowerBIService {
      * @param {pbi.IEmbedConfiguration} config - Configuration paramters.
      * @returns {pbi.Embed} - A {@link pbi.Embed} object representing the embeded report.
      * @memberof PowerBIService
+     * @method
+     * @public
      */
     public embed(element: HTMLElement, config: IEmbedConfiguration): Embed {
         if (!this._isBrowser) { return this.HandleBrowserContextError(); }
@@ -62,6 +68,8 @@ export class PowerBIService {
      * @param {HTMLElement} element - Element from which to obtain the report.
      * @returns {pbi.Embed} - A {@link pbi.Embed} object representing the embeded report.
      * @memberof PowerBIService
+     * @method
+     * @public
      */
     public get(element: HTMLElement): Embed {
         if (!this._isBrowser) { return this.HandleBrowserContextError(); }
@@ -74,6 +82,8 @@ export class PowerBIService {
      * @param {string} uniqueId - Id to search for.
      * @returns {pbi.Embed} - A PowerBI report or tile object matching the id.
      * @memberof PowerBIService
+     * @method
+     * @public
      */
     public find(uniqueId: string): Embed {
         if (!this._isBrowser) { return this.HandleBrowserContextError(); }
@@ -86,6 +96,8 @@ export class PowerBIService {
      * @param {HTMLElement} element - Element from which to remove the report.
      * @returns {void}
      * @memberof PowerBIService
+     * @method
+     * @public
      */
     public reset(element: HTMLElement): void {
         if (!this._isBrowser) { return this.HandleBrowserContextError(); }
@@ -99,9 +111,10 @@ export class PowerBIService {
     /**
      * Handles invalid browser context errors
      *
-     * @private
      * @returns {*}
      * @memberof PowerBIService
+     * @method
+     * @private
      */
     private HandleBrowserContextError(): any {
         throw (new Error(`Not supported in server or AOT contexts. Use WindowRef.IsAvailable to

@@ -6,18 +6,41 @@ import { Report } from '../models/report';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
-
+/**
+ * Configuration object for the Reports List Service.
+ *
+ * @class ReportsListServiceConfig
+ * @export
+ * @injectable
+ */
 @Injectable()
 export class ReportsListServiceConfig  {
+    /**
+     * Gets or sets the Report Service API endpoint.
+     *
+     * @type string
+     * @memberof ReportsListServiceConfig
+     * @public
+     */
     WebAPIServiceUrl: string = '';
+
+    /**
+     * Gets or sets the bearer token required if the API endpoint is authenticated.
+     *
+     * @type string
+     * @memberof ReportsListServiceConfig
+     * @public
+     */
     BearerToken?: string = '';
 }
 
 /**
  *  Injectable sevice providing a list of available reports in the workspace.
  *
- * @export
  * @class ReportsListService
+ * @export
+ * @service
+ * @injectable
  */
 @Injectable()
 export class ReportsListService {
@@ -33,7 +56,10 @@ export class ReportsListService {
     /**
      * Gets or set the service url base for the reports list service.
      *
-     * @type {string}@memberof ReportsListService
+     * @type string
+     * @memberof ReportsListService
+     * @property
+     * @public
      */
     public get ServiceUrl(): string {
         let u: string = '';
@@ -51,11 +77,14 @@ export class ReportsListService {
 
     /**
      * Creates an instance of ReportsListService.
+     *
      * @param {Http} _http - Instance of the http service.
      * @param {string} _serviceUrl - String containing the service Url of the web api providing a list of available
      * reports with access tokens.
      * @param {string} _bearerToken - OAuth token to use to access the web api (if secured).
      * @memberof ReportsListService
+     * @constructor
+     * @public
      */
     constructor(private _http: Http, private _config: ReportsListServiceConfig) {}
 
@@ -65,13 +94,16 @@ export class ReportsListService {
 
     /**
      * Gets the available reports in the workspace including access tokens.
+     *
      * @param {*} alternateHttpProvider - Optional. You can provide an alternate http implementation as an argument.
      * This is mostly used for authenticating http providers such as ADAL that do not derive from http and can
      * therefore not easly be depdency injected as http implementations.
      * @param {boolean} allowCredentials - Set to true to allowCredentials when no bearer token exists.
      * Use false to prevent withCredentials.
-     * @returns {Observable<Array<Report>>} - An Observalbe containing the list of {@link Report} objects.
+     * @returns {Observable<Array<Report>>} - An Observable containing the list of {@link Report} objects.
      * @memberof ReportsListService
+     * @method
+     * @public
      */
     public GetReports(alternateHttpProvider?: any, allowCredentials?: boolean): Observable<Array<Report>> {
         if (alternateHttpProvider && alternateHttpProvider.get == null) { throw(new Error('Alternate HTTP provider must implement get.')); }
@@ -104,6 +136,8 @@ export class ReportsListService {
      * @param {string} id - The report for which to obtain the acecss token.
      * @returns {Observable<string>} - Observable containing the access token.
      * @memberof ReportsListService
+     * @method
+     * @public
      */
     public GetEmbedTokenForReport(id: string): Observable<string> {
         const e: Subject<string> = new Subject<string>();

@@ -13,10 +13,11 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "lint": ".\\node_modules\\.bin\\tslint -c tslint.json './**/*.ts'",
+    "lint": "./node_modules/.bin/tslint -c tslint.json ./src/**/*.ts ./index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm run build",
-    "watch": ".\\node_modules\\.bin\\ngc -p .\\tsconfig-aot.json -w ",
+    "docs": "node ./node_modules/typedoc/bin/typedoc --out ./docs ./ --name 'PowerBi-Ng2 Component' --module commonjs --target es5 --mode file",
+    "prepublish": "npm run lint && npm run docs && npm run build",
+    "watch": ".\\node_modules\\.bin\\ngc -p .\\tsconfig-aot.json -w",
     "build": ".\\node_modules\\.bin\\ngc -p .\\tsconfig-aot.json"
   },
   "keywords": [
@@ -42,14 +43,16 @@
     "powerbi-client": ">=2.3.4 <3.0.0"
   },
   "devDependencies": {
-    "typescript": "^2.3.2",
-    "@types/node": "^7.0.5",
+    "@angular/animations": ">=2.4.10",
+    "@angular/compiler-cli": ">=2.4.10",
     "@angular/platform-browser": ">=2.4.10",
     "@angular/platform-browser-dynamic": ">=2.4.10",
     "@angular/platform-server": ">=2.4.10",
-    "@angular/compiler-cli": ">=2.4.10",
+    "@types/node": "^7.0.5",
     "codelyzer": ">=3.0.1",
-    "tslint": ">=5.4.2"
+    "tslint": ">=5.4.2",
+    "typedoc": "^0.7.1",
+    "typescript": "^2.3.2"
   },
   "peerDependencies": {}
 }

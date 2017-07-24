@@ -6,10 +6,11 @@ import { Subscription } from 'rxjs/Subscription';
  * Implements a compound component displaying a report including navigation and filter panel. This component obtains report id and
  * access token from the route.
  *
- * @export
  * @class ReportDashboard
- * @implements {OnInit}
- * @implements {OnDestroy}
+ * @implements OnInit
+ * @implements OnDestroy
+ * @export
+ * @component
  */
 @Component({
     selector: 'report-dashboard',
@@ -30,7 +31,6 @@ export class ReportDashboard implements OnInit, OnDestroy {
     ///
     /// Field declarations
     ///
-    private _route: ActivatedRoute = null;
     private _parameterSubscription: Subscription = null;
     private _querySubscription: Subscription = null
     private _id: string;
@@ -44,30 +44,40 @@ export class ReportDashboard implements OnInit, OnDestroy {
     /**
      * Gets the report id.
      *
-     * @readonly
+     * @type string
      * @memberof ReportDashboard
+     * @property
+     * @public
+     * @readonly
      */
-    public get ReportId() { return this._id; }
+    public get ReportId(): string { return this._id; }
 
     /**
      * Gets the access token.
      *
-     * @readonly
+     * @type string
      * @memberof ReportDashboard
+     * @property
+     * @public
+     * @readonly
      */
-    public get AccessToken() { return this._token; };
+    public get AccessToken(): string { return this._token; };
 
     /**
      * Creates an instance of ReportDashboard.
      * @param {ActivatedRoute} route - The current route. Used to obtain report id and access token.
      * @memberof ReportDashboard
+     * @constructor
+     * @public
      */
-    constructor(route: ActivatedRoute) { this._route = route; }
+    constructor(private _route: ActivatedRoute) { }
 
     /**
      * Intiializes the component. part of the ng2 component lifecycle. Obtains report parameters from route.
      *
      * @memberof ReportDashboard
+     * @method
+     * @public
      */
     public ngOnInit(): void {
         this._parameterSubscription = this._route.params.subscribe(params => {
@@ -83,8 +93,10 @@ export class ReportDashboard implements OnInit, OnDestroy {
      * Frees up resources on component destruction.
      *
      * @memberof ReportDashboard
+     * @method
+     * @public
      */
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         if (this._parameterSubscription) { this._parameterSubscription.unsubscribe(); }
         if (this._querySubscription) { this._querySubscription.unsubscribe(); }
     }

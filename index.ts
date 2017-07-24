@@ -46,8 +46,10 @@ export {
 /**
  * Module definition.
  *
- * @export
  * @class PowerBIModule
+ * @export
+ * @public
+ * @module
  */
 @NgModule({
     imports: [
@@ -78,11 +80,13 @@ export class PowerBIModule {
      * Call forRoot() when importing the module in the application root module to create app wide services.
      * Only call forRoot() once in your application.
      *
-     * @static
      * @param {string} webAPIServiceUrl - the url of the WebAPI service listing the reports and access tokens in the PowerBI workspace.
      * @param {string} bearerToken - OAuth token to use to access the web api (if secured).
      * @returns {ModuleWithProviders} - A module with injectable providers.
      * @memberof PowerBIModule
+     * @method
+     * @public
+     * @static
      */
     static forRoot(config?: ReportsListServiceConfig): ModuleWithProviders {
         return {
@@ -102,9 +106,10 @@ export class PowerBIModule {
 /**
  * Factory function to the ReportsListService.
  *
- * @export
  * @param {Http} http - An instance of the http service.
  * @returns {ReportsListService} - An instance of the {@link ReportsListService}.
+ * @export
+ * @method
  */
 export function ReportsListServiceFactory(http: Http, config: ReportsListServiceConfig): ReportsListService {
     return new ReportsListService(http, config);

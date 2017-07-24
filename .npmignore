@@ -6,6 +6,9 @@ aot
 # Samples
 samples
 
+# Documentation
+docs
+
 # OS generated files
 Thumbs.db
 .DS_Store

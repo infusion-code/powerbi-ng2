@@ -4,8 +4,10 @@ import { ReportViewer } from './reportViewer';
 /**
  * Provides a component that can navigate through the pages in a power bi report for a given report viewer component.
  *
- * @export
+
  * @class ReportNavigation
+ * @export
+ * @component
  */
 @Component({
     selector: 'reportNavigation',
@@ -49,7 +51,7 @@ export class ReportNavigation {
     /**
      * Gets or sets the report viewer component to interact with.
      *
-     * @type {ReportViewer}
+     * @type ReportViewer
      * @memberof ReportFilter
      * @property
      * @public
@@ -61,7 +63,7 @@ export class ReportNavigation {
     /**
      * Gets or sets whether to show the filter pane in the report.
      *
-     * @type {ReportViewer}
+     * @type boolean
      * @memberof ReportFilter
      * @property
      * @public
@@ -72,7 +74,7 @@ export class ReportNavigation {
     /**
      * Gets or sets whether to show the navigation tabs in the report.
      *
-     * @type {ReportViewer}
+     * @type boolean
      * @memberof ReportFilter
      * @property
      * @public
@@ -88,23 +90,29 @@ export class ReportNavigation {
      * Event handler handling the 'next page' button. Call to navigate one page forward.
      *
      * @memberof ReportNavigation
+     * @method
+     * @public
      */
-    public OnNextPageClick() { this.ChangePage(1); }
+    public OnNextPageClick(): void { this.ChangePage(1); }
 
     /**
      * Event handler handling the 'previous page' button. Call to navigate one page back.
      *
      * @memberof ReportNavigation
+     * @method
+     * @public
      */
-    public OnPreviousPageClick() { this.ChangePage(-1); }
+    public OnPreviousPageClick(): void { this.ChangePage(-1); }
 
     /**
      * Toggles the filter pane in the associated report viewer.
      *
      * @param {boolean} checked
      * @memberof ReportNavigation
+     * @method
+     * @public
      */
-    public OnFilterPaneChange(checked: boolean) {
+    public OnFilterPaneChange(checked: boolean): void {
         this._showFilterPane = checked;
         this._viewer.UpdateSetting('filterPaneEnabled', checked);
     }
@@ -114,8 +122,10 @@ export class ReportNavigation {
      *
      * @param {boolean} checked
      * @memberof ReportNavigation
+     * @method
+     * @public
      */
-    public OnNavPaneChange(checked: boolean) {
+    public OnNavPaneChange(checked: boolean): void {
         this._showNavigation = checked;
         this._viewer.UpdateSetting('navContentPaneEnabled', checked);
     }
@@ -127,11 +137,12 @@ export class ReportNavigation {
     /**
      * Pages to the next page in the report shown in the associated viewer component.
      *
-     * @private
      * @param {number} increment
      * @memberof ReportNavigation
+     * @method
+     * @private
      */
-    private ChangePage(increment: number) {
+    private ChangePage(increment: number): void {
         let i: number = this._viewer.PageIndex + increment;
         if (i < 0) { i = this._viewer.Pages.length - 1; }
         if (i >= this._viewer.Pages.length) { i = 0; }

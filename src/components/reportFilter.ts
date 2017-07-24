@@ -5,8 +5,9 @@ import { models } from 'powerbi-client';
 /**
  * Implements a component to filter a report for a given report viewer.
  *
- * @export
  * @class ReportFilter
+ * @export
+ * @component
  */
 @Component({
     selector: 'reportFilter',
@@ -54,7 +55,7 @@ export class ReportFilter {
 
     /**
      * Gets or sets the column targeted by the filter to add.
-     * @type {string}
+     * @type string
      * @memberof ReportFilter
      * @property
      * @public
@@ -64,7 +65,7 @@ export class ReportFilter {
 
     /**
      * Gets or sets the table targeted by the filter to add.
-     * @type {string}
+     * @type string
      * @memberof ReportFilter
      * @property
      * @public
@@ -74,7 +75,7 @@ export class ReportFilter {
 
     /**
      * Gets or sets the filter target of a filter to add. Expected values are Report or Page.
-     * @type {string}
+     * @type string
      * @memberof ReportFilter
      * @property
      * @public
@@ -90,7 +91,7 @@ export class ReportFilter {
 
     /**
      * Gets or sets the filter value of a filter to add
-     * @type {string}
+     * @type string
      * @memberof ReportFilter
      * @property
      * @public
@@ -101,7 +102,7 @@ export class ReportFilter {
     /**
      * Gets or sets the report viewer component to interact with.
      *
-     * @type {ReportViewer}
+     * @type ReportViewer
      * @memberof ReportFilter
      * @property
      * @public
@@ -119,8 +120,10 @@ export class ReportFilter {
      * https://github.com/Microsoft/PowerBI-JavaScript/wiki/Filters
      *
      * @memberof ReportFilter
+     * @method
+     * @public
      */
-    public AddFilter() {
+    public AddFilter(): void {
         const target = {
             column: this._filterColumn,
             table: this._filterTable
@@ -141,8 +144,10 @@ export class ReportFilter {
      * Clears all report filters.
      *
      * @memberof ReportFilter
+     * @method
+     * @public
      */
-    public ClearFilters() { this._viewer.ClearFilters(); }
+    public ClearFilters(): void { this._viewer.ClearFilters(); }
 
 
     ///
@@ -152,10 +157,11 @@ export class ReportFilter {
     /**
      * Resets the filters.
      *
-     * @private
      * @memberof ReportFilter
+     * @method
+     * @private
      */
-    private Reset() {
+    private Reset(): void {
         this._filterTable = '';
         this._filterColumn = '';
         this._filterTarget = 'report';

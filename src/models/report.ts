@@ -1,8 +1,9 @@
 ﻿/**
  * Model for a PowerBI embed report with token.
  *
- * @export
  * @class Report
+ * @export
+ * @model
  */
 export class Report {
     ///
@@ -20,36 +21,44 @@ export class Report {
     /**
      * Gets the report Id.
      *
-     * @readonly
-     * @type {string}
+     * @type string
      * @memberof Report
+     * @property
+     * @public
+     * @readonly
      */
     public get Id(): string { return this._id; }
 
     /**
      * Gets the report name
      *
-     * @readonly
-     * @type {string}
+     * @type string
      * @memberof Report
+     * @property
+     * @public
+     * @readonly
      */
     public get Name(): string { return this._name; }
 
     /**
      * Gets the report URL
      *
-     * @readonly
-     * @type {string}
+     * @type string
      * @memberof Report
+     * @property
+     * @public
+     * @readonly
      */
     public get Url(): string { return this._url; }
 
     /**
      * Gets the report access token.
      *
-     * @readonly
-     * @type {string}
+     * @type string
      * @memberof Report
+     * @property
+     * @public
+     * @readonly
      */
     public get Token(): string { return this._token; }
 
@@ -60,6 +69,8 @@ export class Report {
      * @param {string} token - Report access token.
      * @param {string} url - Report url.
      * @memberof Report
+     * @constructor
+     * @public
      */
     constructor(id: string, name: string, token: string, url: string) {
         this._id = id;

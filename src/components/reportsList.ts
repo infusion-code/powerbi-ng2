@@ -7,10 +7,11 @@ import { Report } from '../models/report';
 /**
  * Implements a list of reports to be used in navigation component to route to report Dashboards.
  *
- * @export
  * @class ReportsList
- * @implements {OnInit}
- * @implements {OnDestroy}
+ * @implements OnInit
+ * @implements OnDestroy
+ * @export
+ * @component
  */
 @Component({
     selector: 'reportsList',
@@ -48,9 +49,11 @@ export class ReportsList implements OnInit, OnDestroy {
     /**
      * Gets the collection of {@link Report} objects available.
      *
-     * @readonly
-     * @type {Array<Report>}
+     * @type Array<Report>
      * @memberof ReportsList
+     * @readonly
+     * @property
+     * @public
      */
     public get Reports(): Array<Report> { return this._reports; }
 
@@ -62,6 +65,8 @@ export class ReportsList implements OnInit, OnDestroy {
      * Creates an instance of ReportsList.
      * @param {ReportsListService} _reportService - An instance of the ReportsListService to provide the data.
      * @memberof ReportsList
+     * @constructor
+     * @public
      */
     constructor(private _reportService: ReportsListService) { }
 
@@ -73,8 +78,10 @@ export class ReportsList implements OnInit, OnDestroy {
      * Initializes the component. Part of the ng component lifecycle.
      *
      * @memberof ReportsList
+     * @method
+     * @public
      */
-    public ngOnInit() {
+    public ngOnInit(): void {
         this._subscription = this._reportService.GetReports().subscribe(
             data => this._reports = data,
             error => console.log(error),
@@ -86,8 +93,10 @@ export class ReportsList implements OnInit, OnDestroy {
      * Frees up resources on component destruction. Part of the ng component lifecycle.
      *
      * @memberof ReportsList
+     * @method
+     * @public
      */
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         if (this._subscription) { this._subscription.unsubscribe(); }
     }
 }
