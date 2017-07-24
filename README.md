@@ -1,3 +1,4 @@
+
 [![npm version](https://badge.fury.io/js/powerbi-ng2.svg)](https://www.npmjs.com/package/powerbi-ng2) ![powerbi-ng2](https://img.shields.io/npm/dm/powerbi-ng2.svg) [![All Contributors](https://img.shields.io/badge/all_contributors-3-green.svg?style=flat-square)](#contributors)
 
 # Overview
@@ -43,3 +44,4 @@ Note that the components depend on a service endpoint (_reportsListAPIEndPoint a
 
 # Advanced
 Check out the [Wiki](../../wiki) for detailed documentation on components, models and providers.
+SDK documentation for this project is availabel at [https://infusion-code.github.io/powerbi-ng2/](https://infusion-code.github.io/powerbi-ng2/).
